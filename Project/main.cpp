@@ -5,13 +5,12 @@
 using namespace std;
 
 //Functions prototypes
-void draw_playBoard(sf::RectangleShape, sf::Text);
-void create_Items(sf::RectangleShape, sf::Sprite , sf::Texture , sf::Text , sf::Font , sf::Font , sf::Text , sf::Text , sf::Text );
-void change_connect4_circle_colors();
-void drawCircle(int, int);
-void recordTheInput(int);
-void checkWiner(int, int);
-
+void create_Items(sf::RectangleShape, sf::Sprite , sf::Texture , sf::Text , sf::Font , sf::Font , sf::Text , sf::Text , sf::Text ); //Line 38
+void recordTheInput(int); //Line 71
+void draw_playBoard(sf::RectangleShape, sf::Text); //Line 95
+void drawCircle(int, int); //Line 111
+void change_connect4_circle_colors(); //Line 139
+void checkWiner(int, int); //Line 295
 
 //constant variables
 const int scr_width = 1200;
@@ -24,7 +23,6 @@ const int margin = 20;
 sf::RenderWindow window(sf::VideoMode(scr_width, scr_height), "Connect Four"); //Create the window
 
 //Gamelogic data
-void checkWiner(int, int);
 string player, player1 = "Red player", player2 = "Yellow player", winner;
 int x[6][7]; 					//Track every ceil
 int point[] = { 5,5,5,5,5,5,5 }; //track input row of every colomn
@@ -36,23 +34,7 @@ int end_row = 0;
 int color=0; //track ceil color
 //
 
-void draw_playBoard(sf::RectangleShape *grid, sf::Text *text)
-{	string num[]={"1","2","3","4","5","6","7"};  //Numbers to display under the game board
-	for (int i = 0; i < col_size; i++)
-	{
-		for (int j = 0; j < row_size; j++)
-		{
-			(*grid).setPosition(sf::Vector2f(margin + grid_size * i, margin + grid_size * j)); // (left,up)
-			window.draw(*grid);
-			drawCircle(j, i);//Display wena circles tika methanin check karala ganna
-		}
-		(*text).setString(num[i]);
-		(*text).setPosition(sf::Vector2f(50 + grid_size * i, 620));
-		window.draw(*text);
-	}
-}
-
-void create_Items(sf::RectangleShape *grid, sf::Sprite *title, sf::Texture *texture, sf::Text *text, sf::Font *font, sf::Font *font2, sf::Text *status, sf::Text *winText, sf::Text *winName)
+void design_Items(sf::RectangleShape *grid, sf::Sprite *title, sf::Texture *texture, sf::Text *text, sf::Font *font, sf::Font *font2, sf::Text *status, sf::Text *winText, sf::Text *winName)
 {
 	//Grid design
 	(*grid).setFillColor(sf::Color::Transparent);
@@ -83,6 +65,74 @@ void create_Items(sf::RectangleShape *grid, sf::Sprite *title, sf::Texture *text
 	(*winName).setString("");
 	(*winName).setCharacterSize(50);
 	(*winName).setPosition(810,350);
+}
+
+void recordTheInput(int index)
+{	index--;
+	if(point[index]>=0)
+	{		
+		if (player == player1)
+		{
+			x[point[index]][index] = 1;
+			checkWiner(point[index], index);
+			if(win==1)
+				winner=player1;
+			player = player2;
+		}
+		else if (player == player2)
+		{
+			x[point[index]][index] = 2;
+			checkWiner(point[index], index);
+			if(win==1)
+				winner=player2;
+			player = player1;
+		}
+		point[index]--;
+	}	
+}
+
+void draw_playBoard(sf::RectangleShape *grid, sf::Text *text)
+{	string num[]={"1","2","3","4","5","6","7"};  //Numbers to display under the game board
+	for (int i = 0; i < col_size; i++)
+	{
+		for (int j = 0; j < row_size; j++)
+		{
+			(*grid).setPosition(sf::Vector2f(margin + grid_size * i, margin + grid_size * j)); // (left,up)
+			window.draw(*grid);
+			drawCircle(j, i);//Display wena circles tika methanin check karala ganna
+		}
+		(*text).setString(num[i]);
+		(*text).setPosition(sf::Vector2f(50 + grid_size * i, 620));
+		window.draw(*text);
+	}
+}
+
+void drawCircle(int row,int colomn)
+{
+	if(x[row][colomn]!=0)
+	{
+		sf::CircleShape circle(49);
+		circle.setPosition(sf::Vector2f(margin + colomn * 100, margin + row * 100));
+		if (x[row][colomn] == 1)
+			circle.setFillColor(sf::Color(247, 52, 52)); //red
+		if(x[row][colomn] == 2)
+			circle.setFillColor(sf::Color(250, 200, 50)); //yellow
+		if (x[row][colomn] == 11)
+			circle.setFillColor(sf::Color(166, 10, 10)); //dark red
+		if (x[row][colomn] == 22)
+			circle.setFillColor(sf::Color(138, 104, 4)); //dark yellow
+		window.draw(circle);
+	}
+	else if(win == 0)//Check wether game drow
+	{
+		for(int i=0;i<=6;i++)
+		{
+			if (point[i]!=0)
+				break;
+			if(point[6]==0)
+				win=2;	
+		}
+	}
 }
 
 void change_connect4_circle_colors()
@@ -130,58 +180,6 @@ void change_connect4_circle_colors()
 	}
 }
 
-void drawCircle(int row,int colomn)
-{
-	if(x[row][colomn]!=0)
-	{
-		sf::CircleShape circle(49);
-		circle.setPosition(sf::Vector2f(margin + colomn * 100, margin + row * 100));
-		if (x[row][colomn] == 1)
-			circle.setFillColor(sf::Color(247, 52, 52)); //red
-		if(x[row][colomn] == 2)
-			circle.setFillColor(sf::Color(250, 200, 50)); //yellow
-		if (x[row][colomn] == 11)
-			circle.setFillColor(sf::Color(166, 10, 10)); //dark red
-		if (x[row][colomn] == 22)
-			circle.setFillColor(sf::Color(138, 104, 4)); //dark yellow
-		window.draw(circle);
-	}
-	else if(win == 0)//Check wether game drow
-	{
-		for(int i=0;i<=6;i++)
-		{
-			if (point[i]!=0)
-				break;
-			if(point[6]==0)
-				win=2;	
-		}
-	}
-}
-
-void recordTheInput(int index)
-{	index--;
-	if(point[index]>=0)
-	{		
-		if (player == player1)
-		{
-			x[point[index]][index] = 1;
-			checkWiner(point[index], index);
-			if(win==1)
-				winner=player1;
-			player = player2;
-		}
-		else if (player == player2)
-		{
-			x[point[index]][index] = 2;
-			checkWiner(point[index], index);
-			if(win==1)
-				winner=player2;
-			player = player1;
-		}
-		point[index]--;
-	}	
-}
-
 int main()
 {
 	player = player1; 			//By defolt first player is player1 
@@ -203,7 +201,7 @@ int main()
 	sf::Text status; //Create text for status
 	sf::Text winText; //Create text for display "WIN" text
 	sf::Text winName; //Create text for display winner
-	create_Items(&grid,&title, &texture, &text, &font, &font2, &status, &winText, &winName);//Design all created stuff
+	design_Items(&grid,&title, &texture, &text, &font, &font2, &status, &winText, &winName);//Design all created stuff
 	//
 	
 	window.setFramerateLimit(15);     //set maximum frame rate to 15fps

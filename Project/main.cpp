@@ -1,7 +1,6 @@
 #include <iostream>
-#include <string>
 #include<SFML/Graphics.hpp>
-#include <Windows.h>
+
 using namespace std;
 
 //Functions prototypes
@@ -244,7 +243,7 @@ int main()
 		
 		//Draw stuffs here		
 		draw_playBoard(&grid, &text); //Draw the play board
-		if(win!=0) //If there is NO WINNER or game DRAW
+		if(win!=0) //If there is WINNER or game DRAW
 		{
 			if(win==1)
 			{

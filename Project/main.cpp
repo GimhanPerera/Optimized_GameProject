@@ -122,16 +122,8 @@ void drawCircle(int row,int colomn)
 			circle.setFillColor(sf::Color(138, 104, 4)); //dark yellow
 		window.draw(circle);
 	}
-	else if(win == 0)//Check wether game drow
-	{
-		for(int i=0;i<=6;i++)
-		{
-			if (point[i]!=0)
-				break;
-			if(point[6]==0)
-				win=2;	
-		}
-	}
+	if (point[0]<0&&point[1]<0&&point[2]<0&&point[3]<0&&point[4]<0&&point[5]<0&&point[6]<0)//Check wether game drow
+				win=2;
 }
 
 void change_connect4_circle_colors()

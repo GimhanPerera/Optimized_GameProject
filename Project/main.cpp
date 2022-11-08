@@ -4,7 +4,7 @@
 using namespace std;
 
 //Functions prototypes
-void create_Items(sf::RectangleShape, sf::Sprite , sf::Texture , sf::Text , sf::Font , sf::Font , sf::Text , sf::Text , sf::Text ); //Line 38
+void design_Items(sf::RectangleShape, sf::Sprite , sf::Texture , sf::Text , sf::Font , sf::Font , sf::Text , sf::Text , sf::Text ); //Line 38
 void recordTheInput(int); //Line 71
 void draw_playBoard(sf::RectangleShape, sf::Text); //Line 95
 void drawCircle(int, int); //Line 111

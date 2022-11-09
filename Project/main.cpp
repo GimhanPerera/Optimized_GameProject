@@ -4,12 +4,12 @@
 using namespace std;
 
 //Functions prototypes
-void design_Items(sf::RectangleShape, sf::Sprite , sf::Texture , sf::Text , sf::Font , sf::Font , sf::Text , sf::Text , sf::Text ); //Line 38
-void recordTheInput(int); //Line 71
-void draw_playBoard(sf::RectangleShape, sf::Text); //Line 95
-void drawCircle(int, int); //Line 111
-void change_connect4_circle_colors(); //Line 139
-void checkWiner(int, int); //Line 295
+void design_Items(sf::RectangleShape, sf::Sprite , sf::Texture , sf::Text , sf::Font , sf::Font , sf::Text , sf::Text , sf::Text ); //Line 36
+void recordTheInput(int); //Line 74
+void draw_playBoard(sf::RectangleShape, sf::Text); //Line 98
+void drawCircle(int, int); //Line 114
+void change_connect4_circle_colors(); //Line 134
+void checkWiner(int, int); //Line 297
 
 //constant variables
 const int scr_width = 1200;

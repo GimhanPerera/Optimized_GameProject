@@ -33,7 +33,7 @@ int end_row = 0;
 int color=0; //track ceil color
 //
 
-void design_Items(sf::RectangleShape *grid, sf::Sprite *title, sf::Texture *texture, sf::Text *text, sf::Font *font, sf::Font *font2, sf::Font *font3, sf::Text *status, sf::Text *winText, sf::Text *winName,sf::Text *instruction)
+void design_Items(sf::RectangleShape *grid, sf::Sprite *title, sf::Texture *texture, sf::Text *text, sf::Font *font, sf::Font *font2, sf::Text *status, sf::Text *winText, sf::Text *winName,sf::Text *instruction)
 {
 	//Grid design
 	(*grid).setFillColor(sf::Color::Transparent);
@@ -46,7 +46,6 @@ void design_Items(sf::RectangleShape *grid, sf::Sprite *title, sf::Texture *text
 	//Connect fonts
 	(*font).loadFromFile("font.ttf");
 	(*font2).loadFromFile("Milky Coffee.ttf");
-	(*font3).loadFromFile("Arialn.ttf");
 	//Numbers design
 	(*text).setFont(*font);
 	(*text).setString("");
@@ -194,12 +193,11 @@ int main()
 	sf::Text text; //Numbers Create Text variable type for Numbers(1,2,3,4,5,6,7)
 	sf::Font font; //Create pront type
 	sf::Font font2;//Arialn
-	sf::Font font3;
 	sf::Text instruction;
 	sf::Text status; //Create text for status
 	sf::Text winText; //Create text for display "WIN" text
 	sf::Text winName; //Create text for display winner
-	design_Items(&grid,&title, &texture, &text, &font, &font2, &font3, &status, &winText, &winName, &instruction);//Design all created stuff
+	design_Items(&grid,&title, &texture, &text, &font, &font2, &status, &winText, &winName, &instruction);//Design all created stuff
 	//
 	
 	window.setFramerateLimit(15);     //set maximum frame rate to 15fps

@@ -33,7 +33,7 @@ int end_row = 0;
 int color=0; //track ceil color
 //
 
-void design_Items(sf::RectangleShape *grid, sf::Sprite *title, sf::Texture *texture, sf::Text *text, sf::Font *font, sf::Font *font2, sf::Text *status, sf::Text *winText, sf::Text *winName)
+void design_Items(sf::RectangleShape *grid, sf::Sprite *title, sf::Texture *texture, sf::Text *text, sf::Font *font, sf::Font *font2, sf::Font *font3, sf::Text *status, sf::Text *winText, sf::Text *winName,sf::Text *instruction)
 {
 	//Grid design
 	(*grid).setFillColor(sf::Color::Transparent);
@@ -46,6 +46,7 @@ void design_Items(sf::RectangleShape *grid, sf::Sprite *title, sf::Texture *text
 	//Connect fonts
 	(*font).loadFromFile("font.ttf");
 	(*font2).loadFromFile("Milky Coffee.ttf");
+	(*font3).loadFromFile("Arialn.ttf");
 	//Numbers design
 	(*text).setFont(*font);
 	(*text).setString("");
@@ -64,6 +65,10 @@ void design_Items(sf::RectangleShape *grid, sf::Sprite *title, sf::Texture *text
 	(*winName).setString("");
 	(*winName).setCharacterSize(50);
 	(*winName).setPosition(810,350);
+	//instruction design
+	(*instruction).setFont(*font2);
+	(*instruction).setString("");
+	(*instruction).setCharacterSize(50);
 }
 
 void recordTheInput(int index)
@@ -123,7 +128,7 @@ void drawCircle(int row,int colomn)
 		window.draw(circle);
 	}
 	if (point[0]<0&&point[1]<0&&point[2]<0&&point[3]<0&&point[4]<0&&point[5]<0&&point[6]<0)//Check wether game drow
-				win=2;
+		win=2;
 }
 
 void change_connect4_circle_colors()
@@ -188,11 +193,13 @@ int main()
 	sf::Texture texture;
 	sf::Text text; //Numbers Create Text variable type for Numbers(1,2,3,4,5,6,7)
 	sf::Font font; //Create pront type
-	sf::Font font2;
+	sf::Font font2;//Arialn
+	sf::Font font3;
+	sf::Text instruction;
 	sf::Text status; //Create text for status
 	sf::Text winText; //Create text for display "WIN" text
 	sf::Text winName; //Create text for display winner
-	design_Items(&grid,&title, &texture, &text, &font, &font2, &status, &winText, &winName);//Design all created stuff
+	design_Items(&grid,&title, &texture, &text, &font, &font2, &font3, &status, &winText, &winName, &instruction);//Design all created stuff
 	//
 	
 	window.setFramerateLimit(15);     //set maximum frame rate to 15fps
@@ -271,7 +278,12 @@ int main()
 				status.setFillColor(sf::Color(250, 200, 50));
 			}				
 			status.setCharacterSize(40);
-			status.setPosition(850,150);
+			status.setPosition(850,250);
+			instruction.setCharacterSize(26);
+			instruction.setPosition(750,150);
+			instruction.setFillColor(sf::Color(255,255,255));
+			instruction.setString("Enter the desired column number\n you wish to insert the disk");
+			window.draw(instruction);
 		}
 		window.draw(title); //Draw the title
 		window.draw(status); //Draw the status (RED Player Turn / YELLOW\nPlayer Turn)
